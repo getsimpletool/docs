@@ -1,0 +1,71 @@
+---
+title: '🔍 Overview'
+description: 'Architecture and design of the SimpleTool Server'
+---
+
+# 🏗️ SimpleTool Server Architecture
+
+SimpleTool Server is a lightweight, asynchronous FastAPI server at the core of the SimpleTool project. It provides SSE, REST, and OpenAPI interfaces for dynamically invoking MCP tools in isolated threads.
+
+## ✨ Key Features
+
+- 🐳 **Docker Container** – Pre-built Debian 13 image with FastAPI/Python 3.13.
+- ⚡ **MCP Tool Support** – Launch any MCP tool via `uvx` or `npx`.
+- 🔄 **Dynamic Tool Loading** – Whitelist/blacklist filtering fetched from MCP, enabling runtime endpoint control.
+- 🌐 **Multi-channel Access** – SSE, Swagger UI (REST), and `tools/openapi.json` (OpenAPI, OpenWebUI compatible).
+- 🐳 **Isolation** – Each tool runs in its own thread, minimizing impact on the main server.
+- 🗄️ **JSON Configuration** – Simple editing, no database required.
+- 🧑‍💻 **Custom MCP Server** – Connect an external MCP server via ENV settings.
+- 🛡️ **Bearer Admin Hack** – Quick admin authorization via Bearer token (ideal for testing).
+- 📝 **FastAPI + Pydantic** – Fully typed for readability and safety.
+- ✅ **PyTest** – Spins up a real server to test endpoints without mocking.
+
+## Project Architecture
+
+```
+src/server/
+├── main.py             # Entry point, router registration, event handlers
+├── config.py           # Base application paths and settings
+├── routers/            # Endpoint definitions: user, admin, prompts, mcp_sse, tools
+├── services/           # Logic for initializing and managing MCP Server instances
+├── middleware/         # CORS, logging, and error handling setup
+├── auth/               # Dependency and security modules (Bearer token)
+├── logger.py           # Central logger using Python's logging module
+└── data/               # Configuration files and user session data
+```
+
+### Startup Flow
+
+1. **Load environment** using `dotenv`.
+2. Initialize `ConfigService` and `McpServerService`.
+3. Register routers: REST, SSE, and dynamic tools.
+4. Start periodic cleanup of idle private servers.
+5. Handle SIGINT/SIGTERM signals for graceful shutdown.
+
+## Getting Started
+
+1. Clone the repository and build the Docker image:
+
+   ```bash
+   docker build -t simpletool-server .
+   ```
+
+2. Run the container:
+
+   ```bash
+   docker run \
+     -e CONFIG_STORAGE_TYPE=files \
+     -e BEARER_ADMIN_HACK=true \
+     -p 8000:8000 \
+     simpletool-server
+   ```
+
+3. Open the documentation:
+
+   - SSE: `http://localhost:8000/sse`
+   - REST: `http://localhost:8000/docs`
+   - OpenAPI: `http://localhost:8000/tools/openapi.json`
+
+---
+
+> **Demo:** This overview can be expanded with usage examples and architecture diagrams for the final documentation.

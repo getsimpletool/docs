@@ -1,71 +1,45 @@
 ---
-title: Introduction
-description: "Welcome to the home of your new documentation"
+title: '📚 Introduction'
+description: 'Welcome to the SimpleTool Server documentation.'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.png"
-  alt="Hero Dark"
-/>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tQ6OhvC4eDQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
 
-## Setting up
+# 🤔 What is SimpleTool Server?
 
-The first step to world-class documentation is setting up your editing environments.
+SimpleTool Server is a lightweight, asynchronous API platform for running and managing MCP tools in isolated, secure environments.
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
+## ✨ Key Features
 
-## Make it yours
+- ✨ Local Docker container – your own local Docker container with a single SSE-MCP connection
+- ⚡ Support for any MCP tool launched via `uvx` or `npx`
+- 🔄 Dynamic tool loading and filtering (whitelist/blacklist)
+- 🌐 Access to MCP tools via SSE, Swagger REST, and OpenAPI.json (compatible with OpenWebUI)
+- 🐳 Tool isolation – each tool runs in its own thread
+- 🗄️ JSON-based configuration – easy to edit and portable
+- 🧑‍💻 Ability to launch your own MCP server with custom ENV parameters
+- 🛡️ Bearer admin hack – simple admin authorization (ideal for testing and quick changes)
+- 📝 Async FastAPI Python server with full type hints for code clarity and safety
+- ✅ PyTest – fast and easy verification of changes on a running server
 
-Update your docs to your brand and add valuable content for the best user conversion.
+## 🎉 What we have now...
 
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+- 🔗 Docker container built on Debian 13 with FastAPI/Python 3.13 server
+- ⚡ Support for any MCP tool launched via `uvx` or `npx`
+- 🌐 Access to MCP tools via SSE, Swagger REST, and OpenAPI.json (OpenWebUI compatible)
+- 🆒 SupervisorD controlled by ENV allows running SSHD + Xfce + noVNC (desktop via web/port 6901, ~400MB)
+- 🔄 Dynamic tool loading and filtering from MCP server (whitelist/blacklist)
+- 🧵 Each MCP server runs in its own thread
+- 🗄️ No need for a database – JSON configuration for easy editing and portability
+- 🧑‍💻 Users can define their own MCP server with custom ENV (auto-detected via Auth Bearer)
+- 🛡️ Env Bearer Admin Hack – configurable env simulating Bearer admin (ideal for tests and quick changes)
+- 📝 Built entirely on FastAPI Python + Pydantic for code clarity and safety
+- ❌ Custom SSE stack based only on FastAPI (no Starlette)
+- ✅ PyTest – tests run a live server instance and perform tests on a real running server (no mocking!)
+
+## 🚀 Working on...
+
+- 🤔 Prompts – fixing some bugs with class injection into SSE
+- 🖥️ WebUI Frontend with Marketplace (click and install)
+
+Ready? Let's get started with SimpleTool Server!

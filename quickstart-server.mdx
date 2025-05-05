@@ -1,0 +1,257 @@
+---
+title: '🚀 Quickstart'
+description: 'How to run SimpleTool Server on your machine in minutes'
+---
+
+# 🕒 Run SimpleTool Server on your machine in minutes 
+
+There are three main ways to run SimpleTool Server:
+
+1. Using **Docker Compose** (recommended for most users) 🐳
+2. Using **Docker** directly (more control over container settings) 🐋
+3. Running the **Python code directly** (better for development and customization) 🐍
+
+## 🐳 Option 1: Docker Compose (Recommended)
+
+The Docker Compose setup provides a fully configured container with:
+- 🖥️ SimpleTool Server with FastAPI
+- 🔐 SSH access
+- 🖼️ Desktop environment (Xfce) accessible via built-in noVNC
+
+All 3 elements are initialized and run in a single container using `supervisord`.
+You can check status of each element by running:
+
+```bash
+docker exec -it simpletool-server supervisorctl status
+```
+
+### 📋 Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) 🐳
+- [Docker Compose](https://docs.docker.com/compose/install/) 📦
+
+### 📝 Steps
+
+1. **Clone the repository** 📥
+
+   ```bash
+   git clone https://github.com/getsimpletool/simpletool-server.git
+   cd simpletool-server/docker
+   ```
+
+2. **Configure environment variables (optional)** ⚙️
+
+   The default configuration in `docker-compose.yaml` works out of the box, but you can modify any of these settings:
+
+   ```yaml
+   environment:
+     - ADMIN_DEFAULT_PASSWORD=admin         # Default admin password
+     - ADMIN_BEARER_HACK=abc123             # Static token for admin access
+     - TOOLS_WHITELIST=                     # Tools to allow (empty = all)
+     - TOOLS_BLACKLIST=                     # Tools to block
+     - SSH_ENABLED=true                     # Enable SSH access
+     - VNC_ENABLED=true                     # Enable VNC desktop
+   ```
+
+   use allready build image from ghcr.io if you dont whant to use `Dockerfile`:
+
+   ```yaml
+   services:
+      simpletool-server:
+         image: ghcr.io/getsimpletool/simpletool-server:latest
+   ```
+
+3. **Start the server** 🏁
+
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Access the server** 🔗
+
+   - 🌐 API Server: [http://localhost:8000](http://localhost:8000)
+   - 📚 Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
+   - 🖥️ Web Desktop (noVNC): [http://localhost:6901](http://localhost:6901) (password: `vncpassword`)
+   - 🔐 SSH: `ssh -p 2222 appuser@localhost` (password: `appuser`)
+
+### 🛑 Stopping the server
+
+```bash
+cd docker
+docker-compose down
+```
+
+
+## 🐋 Option 2: Manual Docker Setup
+
+If you need more control over your Docker container or don't want to use Docker Compose, you can use the Docker CLI directly.
+
+### 📋 Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) 🐳
+
+### 📝 Steps
+
+#### Method A: Pull from GitHub Container Registry (Recommended)
+
+1. **Pull the image from GHCR** 📥
+
+   ```bash
+   docker pull ghcr.io/getsimpletool/simpletool-server:latest
+   ```
+
+2. **Run the container** 🏁
+
+   ```bash
+   docker run -d \
+     --name simpletool-server \
+     -p 8000:8000 \
+     -p 2222:22 \
+     -p 5901:5901 \
+     -p 6901:6901 \
+     -e ADMIN_DEFAULT_PASSWORD=admin \
+     -e ADMIN_BEARER_HACK=abc123 \
+     -e SSH_ENABLED=true \
+     -e VNC_ENABLED=true \
+     -v "$(pwd)/data:/app/server/data" \
+     ghcr.io/getsimpletool/simpletool-server:latest
+   ```
+
+#### Method B: Build from Source
+
+1. **Clone the repository** 📥
+
+   ```bash
+   git clone https://github.com/getsimpletool/simpletool-server.git
+   cd simpletool-server
+   ```
+
+2. **Build the Docker image** 🔨
+
+   ```bash
+   docker build -t simpletool-server:local -f docker/Dockerfile .
+   ```
+
+3. **Run the container** 🏁
+
+   ```bash
+   docker run -d \
+     --name simpletool-server \
+     -p 8000:8000 \
+     -p 2222:22 \
+     -p 5901:5901 \
+     -p 6901:6901 \
+     -e ADMIN_DEFAULT_PASSWORD=admin \
+     -e ADMIN_BEARER_HACK=abc123 \
+     -e SSH_ENABLED=true \
+     -e VNC_ENABLED=true \
+     -v "$(pwd)/data:/app/server/data" \
+     simpletool-server:local
+   ```
+
+### 🔗 Access the server
+
+- 🌐 API Server: [http://localhost:8000](http://localhost:8000)
+- 📚 Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
+- 🖥️ Web Desktop (noVNC): [http://localhost:6901](http://localhost:6901) (password: `vncpassword`)
+- 🔐 SSH: `ssh -p 2222 appuser@localhost` (password: `appuser`)
+
+### 🛑 Stopping and removing the container
+
+```bash
+docker stop simpletool-server
+docker rm simpletool-server
+```
+
+## 🐍 Option 3: Python Direct Mode
+
+Running directly with Python is ideal for development, debugging, or when you don't need the full container with desktop environment.
+
+### 📋 Prerequisites
+
+- Python 3.10+ installed 🐍
+- Git 📥
+
+### 📝 Steps
+
+1. **Clone the repository** 📥
+
+   ```bash
+   git clone https://github.com/getsimpletool/simpletool-server.git
+   cd simpletool-server
+   ```
+
+2. **Set up Python environment** 🛠️
+
+   ```bash
+   # Create and activate virtual environment
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+   # Install dependencies
+   cd src/server
+   pip install -r requirements.txt
+   ```
+
+3. **Configure environment variables (optional)** ⚙️
+
+   Create a `.env` file in the `src/server` directory:
+
+   ```
+   ADMIN_DEFAULT_PASSWORD=admin
+   ADMIN_BEARER_HACK=abc123
+   CONFIG_STORAGE_TYPE=files
+   ```
+
+4. **Run the server** 🏁
+
+   ```bash
+   # From the src/server directory
+   python main.py
+   ```
+
+   Or use the convenience script:
+
+   ```bash
+   # From the src/server directory
+   ./run_quick.sh
+   ```
+
+5. **Access the server** 🔗
+
+   - 🌐 API Server: [http://localhost:8000](http://localhost:8000)
+   - 📚 Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+## ✅ Verifying Your Installation
+
+To verify that the server is running correctly, check these endpoints:
+
+1. **Health check** 🩺
+
+   ```bash
+   curl http://localhost:8000/health
+   # Expected response: {"status":"ok"}
+   ```
+
+2. **Ping test** 🏓
+
+   ```bash
+   curl http://localhost:8000/ping
+   # Expected response: {"response":"pong"}
+   ```
+
+3. **View available tools** 🔧
+
+   ```bash
+   curl http://localhost:8000/tools/openapi.json
+   ```
+
+   Probably will be empty, because we dont have any tools yet.
+
+## 🔮 Next Steps
+
+Once your server is running:
+
+1. 📚 View the Swagger UI at `/docs` to explore API endpoints
+2. 🔧 Check the available MCP tools mapped to OpenAPI standard at `/tools/openapi.json` (and this path you can use as `tools` for `OpenWebUI`)
+3. 📡 Connect to the server via the SSE endpoint at `/sse` for real-time communication

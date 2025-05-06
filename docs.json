@@ -23,7 +23,14 @@
           {
             "group": "Essentials",
             "pages": [
+              "essentials/overview",
               "essentials/env"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/windsurf"
             ]
           }
         ]
@@ -35,9 +42,14 @@
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": []
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/getsimpletool/simpletool-server"
+    }
   },
   "footer": {
-    "socials": {}
+    "socials": {
+      "github": "https://github.com/getsimpletool/simpletool-server"
+    }
   }
 }

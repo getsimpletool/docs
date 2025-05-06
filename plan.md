@@ -1,6 +1,10 @@
 # SimpleTool Server Documentation Plan
 
+Path of SRC Code:
+/mnt/github/simpletool-server/src/server
+
 ## 1. Architecture and System Design
+
 - **1.1 System Overview**
   - Introduction to the Model Context Protocol (MCP)
   - SimpleTool Server architecture diagram
@@ -28,6 +32,7 @@
   - API key management
 
 ## 2. Developer Guide
+
 - **2.1 Setup and Installation**
   - Local development environment setup
   - Docker-based installation
@@ -63,6 +68,7 @@
   - Code review process
 
 ## 3. User Guide
+
 - **3.1 Getting Started**
   - Introduction to SimpleTool Server
   - Basic concepts and terminology

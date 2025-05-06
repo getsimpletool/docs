@@ -14,16 +14,16 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "SimpleTool Server",
+            "group": "Getting Started",
             "pages": [
               "introduction",
-              "quickstart-server"
+              "quickstart"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Configuration",
             "pages": [
-              "essentials/overview",
+              "essentials/api-reference",
               "essentials/env"
             ]
           },

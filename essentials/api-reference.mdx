@@ -1,0 +1,83 @@
+---
+title: 🩺 API Reference
+description: Documentation for SimpleTool Server APIs
+---
+
+## REST Endpoints 📡
+
+SimpleTool Server organizes its REST API endpoints into logical groups for easier navigation and management. The endpoints are structured according to their functionality:
+
+- **User**: Authentication and user profile management
+- **MCP-SSE**: Server-Sent Events (SSE) for real-time communication with MCP servers
+- **Admin**: Server management, user administration, and configuration
+- **Tools**: Dynamically generated endpoints based on connected MCP servers
+- **Core (Hidden)**: Basic server information and health monitoring
+
+Each group follows RESTful principles with consistent response formats and status codes.
+
+**Rest API Swagger Docs**: `http://localhost:8000/docs`
+**Rest API Redoc Docs**: `http://localhost:8000/redoc`
+
+### Core Endpoints ⚡
+```http
+GET /health         🩺 Health check {status: "ok"}
+GET /ping           🏓 Connectivity test {response: "pong"}
+```
+
+### MCP-SSE Endpoints ⚡
+```http
+GET /mcp/sse            📶 SSE endpoint for real-time communication
+```
+
+## SSE Transport Implementation 📶
+
+Server-Sent Events (SSE) is a server push technology enabling a client to receive automatic updates from a server via HTTP connection. Unlike WebSockets, SSE is a one-way communication channel from server to client, making it ideal for scenarios where real-time updates need to be pushed to clients.
+
+SimpleTool Server implements SSE base on own FastAPI SSE implementation.
+
+
+
+## OpenAPI Specification 📄
+
+SimpleTool Server provides comprehensive OpenAPI documentation for all its endpoints. The server generates two separate OpenAPI specifications:
+
+1. **Complete API Documentation**: Available at `/openapi.json`, this includes all server endpoints including core, admin, and user routes.
+
+2. **Tools-Only Documentation**: Available at `/tools/openapi.json`, this focused specification only includes dynamically generated tool endpoints, making it easier to integrate with tool-specific clients.
+
+API Documentation can be visualized and interacted with through:
+- Interactive UI: `/docs` (Swagger)
+- Alternative Docs: `/redoc`
+
+The OpenAPI specification is automatically updated when new tools or endpoints are added to the system.
+
+## Tool Endpoint Generation 🛠️
+
+SimpleTool Server dynamically generates REST endpoints based on connected MCP servers. When a new MCP server is added to the configuration, the system automatically:
+
+1. Discovers available tools from the MCP server
+2. Creates corresponding REST endpoints for each tool under `/tools/{mcp-server-name}/{tool-name}`
+3. Generates OpenAPI documentation for these endpoints
+
+**Important**: Due to how Swagger UI caches OpenAPI specifications, you may need to refresh your browser after adding new MCP servers to see the newly generated endpoints in the documentation.
+
+## Admin API Security 🔒
+
+The Admin API provides centralized management capabilities for the SimpleTool Server. This section contains endpoints for:
+
+- **Server Management**: Configure and monitor the main server
+- **User Administration**: Create, update, and delete user accounts
+- **MCP Server Management**: Add, remove, and restart MCP servers
+
+All Admin API endpoints require administrator privileges and are protected by JWT authentication. Administrative operations are logged for audit purposes.
+
+## User API Endpoints 🔒
+
+User API provides user management capabilities for the SimpleTool Server. This section contains endpoints for:
+
+- **ENV**: Manage own private user environment variables
+- **Password**: Change own password
+- **API-Keys**: Manage own API keys which are used togethere with MCP/SSE Connection to run `private` mcpServer with `privet` env user settings
+- **Server**: Manage own private mcpServer
+- **Prompts**: Manage own private prompts
+

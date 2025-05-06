@@ -3,7 +3,11 @@ title: 🩺 API Reference
 description: Documentation for SimpleTool Server APIs
 ---
 
+<<<<<<< HEAD
 ## REST Endpoints 📡
+=======
+## 📡 REST Endpoints
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 
 SimpleTool Server organizes its REST API endpoints into logical groups for easier navigation and management. The endpoints are structured according to their functionality:
 
@@ -18,18 +22,30 @@ Each group follows RESTful principles with consistent response formats and statu
 **Rest API Swagger Docs**: `http://localhost:8000/docs`
 **Rest API Redoc Docs**: `http://localhost:8000/redoc`
 
+<<<<<<< HEAD
 ### Core Endpoints ⚡
+=======
+### ⚡ Core Endpoints
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 ```http
 GET /health         🩺 Health check {status: "ok"}
 GET /ping           🏓 Connectivity test {response: "pong"}
 ```
 
+<<<<<<< HEAD
 ### MCP-SSE Endpoints ⚡
+=======
+### ⚡ MCP-SSE Endpoints
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 ```http
 GET /mcp/sse            📶 SSE endpoint for real-time communication
 ```
 
+<<<<<<< HEAD
 ## SSE Transport Implementation 📶
+=======
+## 📶 SSE Transport Implementation
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 
 Server-Sent Events (SSE) is a server push technology enabling a client to receive automatic updates from a server via HTTP connection. Unlike WebSockets, SSE is a one-way communication channel from server to client, making it ideal for scenarios where real-time updates need to be pushed to clients.
 
@@ -37,7 +53,11 @@ SimpleTool Server implements SSE base on own FastAPI SSE implementation.
 
 
 
+<<<<<<< HEAD
 ## OpenAPI Specification 📄
+=======
+## 📄 OpenAPI Specification
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 
 SimpleTool Server provides comprehensive OpenAPI documentation for all its endpoints. The server generates two separate OpenAPI specifications:
 
@@ -51,7 +71,11 @@ API Documentation can be visualized and interacted with through:
 
 The OpenAPI specification is automatically updated when new tools or endpoints are added to the system.
 
+<<<<<<< HEAD
 ## Tool Endpoint Generation 🛠️
+=======
+## 🛠️ Tool Endpoint Generation
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 
 SimpleTool Server dynamically generates REST endpoints based on connected MCP servers. When a new MCP server is added to the configuration, the system automatically:
 
@@ -61,7 +85,11 @@ SimpleTool Server dynamically generates REST endpoints based on connected MCP se
 
 **Important**: Due to how Swagger UI caches OpenAPI specifications, you may need to refresh your browser after adding new MCP servers to see the newly generated endpoints in the documentation.
 
+<<<<<<< HEAD
 ## Admin API Security 🔒
+=======
+## 🔒 Admin API Security
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 
 The Admin API provides centralized management capabilities for the SimpleTool Server. This section contains endpoints for:
 
@@ -71,7 +99,11 @@ The Admin API provides centralized management capabilities for the SimpleTool Se
 
 All Admin API endpoints require administrator privileges and are protected by JWT authentication. Administrative operations are logged for audit purposes.
 
+<<<<<<< HEAD
 ## User API Endpoints 🔒
+=======
+## 🔒 User API Endpoints
+>>>>>>> 763b45e (	deleted:    .nfs000000000528209100000005)
 
 User API provides user management capabilities for the SimpleTool Server. This section contains endpoints for:
 
